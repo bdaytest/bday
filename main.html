@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Pacifico&family=Nanum+Gothic&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <title>Birthday Surprise</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+    }
+   body {
+  background: linear-gradient(-45deg, #ffe6f7, #d5c6ff, #c1f0f6, #ffdef0);
+  background-size: 500% 500%;
+  animation: kpopGradient 20s ease infinite;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+@keyframes kpopGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+    .stars, .sparkles{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .star, .sparkle {
+      position: absolute;
+      border-radius: 50%;
+    }
+    .star {
+      background: white;
+      width: 2px;
+      height: 2px;
+      animation: twinkle 2s infinite ease-in-out alternate;
+    }
+    @keyframes twinkle {
+      0% { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
+    .sparkle {
+      background: rgba(255, 255, 255, 0.9);
+      width: 6px;
+      height: 6px;
+      animation: sparkleAnim 3s linear infinite;
+    }
+    @keyframes sparkleAnim {
+      0% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(0.5) translateY(100px);
+        opacity: 0;
+      }
+    }
+    .open-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    table {
+  border-collapse: separate;
+  border-spacing: 10px;
+}
+.heading {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 60px;
+  height: 120px;
+  color: #fff;
+  font-family: 'Pacifico', cursive;
+  text-shadow: 0 0 8px #ff99dd, 0 0 15px #ff99ff;
+  transition: opacity 0.4s ease-in-out;
+  overflow: hidden;
+}
+
+#title th {
+  font-family: 'Nanum Gothic', sans-serif;
+  font-size: 20px;
+  color: #fff;
+  letter-spacing: 1.5px;
+  padding: 12px 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  text-shadow: 0 0 4px #ffb6ff, 0 0 8px #ff9de3;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 10px #ffb6ff, 0 0 15px #ffb6ff;
+
+}
+
+
+#counter td {
+  font-family: 'Orbitron', monospace;
+  font-size: 60px;
+  color: #ff90d0;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 16px;
+  box-shadow: 0 0 15px #ffb3ec, 0 0 25px #ffb3ec;
+  text-align: center;
+  padding: 30px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#counter td:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #ffd6f5;
+}
+@media (max-width:600px){
+    table{
+        width:100px;
+    }
+    #title th{
+        font-size: 12px;
+        letter-spacing: 0.5px;
+        padding: auto;
+    }
+    #counter td{
+        font-size: 12px;
+        padding: auto;
+    }
+    .heading{
+        font-size: 35px;
+    }
+}
+.cake-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 80px;
+  animation: fadeIn 2s ease-in;
+}
+.wish-text {
+  font-family: 'Dancing Script', cursive;
+  font-size: 36px;
+  color: #fff;
+  text-shadow: 0 0 10px #ff9de3, 0 0 20px #ffb6ff;
+  margin-bottom: 20px;
+  animation: floatText 3s ease-in-out infinite;
+}
+
+@keyframes floatText {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.cake {
+  position: relative;
+  width: 180px;
+  height: 240px;
+}
+
+.plate {
+  width: 200px;
+  height: 20px;
+  background: #eee;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0;
+  left: -10px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+.layer {
+  width: 180px;
+  height: 40px;
+  background: #ffaad4;
+  border-radius: 10px;
+  position: absolute;
+  left: 0;
+  box-shadow: 0 5px 15px rgba(255, 150, 220, 0.4);
+}
+.layer-bottom { bottom: 20px; background: #ffc1f3; }
+.layer-middle { bottom: 60px; background: #ffdef0; }
+.layer-top    { bottom: 100px; background: #ffe6f7; }
+.icing {
+  position: absolute;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 40px;
+  background: #fff;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 0 20px #fff;
+  overflow: visible;
+  z-index: 2;
+}
+
+.icing::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  top: 30px;
+  left: 0;
+  z-index: -1;
+}
+
+.icing::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+.icing::after {
+  content: '';
+  position: absolute;
+  top: 35px;
+  left: 15px;
+  width: 15px;
+  height: 25px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow:
+    30px 0 #fff,
+    60px -5px #fff,
+    90px 0 #fff,
+    120px -10px #fff,
+    150px 5px #fff;
+}
+.candles {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  position: absolute;
+  bottom: 145px;
+  left: 0;
+  right: 0;
+  z-index: 4;
+}
+.number-candle {
+  position: relative;
+  width: 40px;
+  height: 60px;
+  background: linear-gradient(to bottom, #ff6db3, #ff1493);
+  border-radius: 10px;
+  box-shadow: 0 0 10px #ff69b4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.number-candle .digit {
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  font-size: 32px;
+  color: white;
+  text-shadow: 0 0 5px #fff, 0 0 10px #ffb6ff;
+  z-index: 2;
+}
+.number-candle .flame {
+  position: absolute;
+  top: -20px;
+  left: 30%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 20px;
+  background: radial-gradient(circle, #fffcc0 0%, #ffae00 60%, #ff4500 100%);
+  border-radius: 50% 50% 50% 50%;
+  animation: flicker 0.2s infinite alternate;
+  box-shadow: 0 0 10px #ffd700, 0 0 25px #ffb347;
+  z-index: 1;
+}
+@keyframes flicker {
+  0%   { transform: scale(1) rotate(0deg); opacity: 0.9; }
+  50%  { transform: scale(1.2) rotate(2deg); opacity: 1; }
+  100% { transform: scale(1) rotate(-1deg); opacity: 0.85; }
+}
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+#blowCandlesBtn {
+  position: relative;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px 30px;
+  background-color: #ff69b4;
+  color: white;
+  font-size: 20px;
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0 0 15px #ff69b4;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  z-index: 1000;
+  margin-top: 30px;
+}
+#blowCandlesBtn:hover {
+  background-color: #ff1493;
+}
+#confetti-canvas {
+  position: fixed;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+}
+.flame.extinguished {
+  animation: blowOut 0.6s forwards;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+@keyframes blowOut {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0) translateY(-10px);
+  }
+}
+.smoke {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  background: radial-gradient(circle, rgba(100, 100, 100, 0.6) 20%, transparent 80%);
+  border-radius: 50%;
+  opacity: 0;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: none;
+  z-index: 5;
+  box-shadow: 0 0 15px rgba(50, 50, 50, 0.4);
+  filter: blur(2px);
+}
+
+
+.smoke.active {
+  animation: smokeRise 2.5s ease-out forwards;
+}
+
+@keyframes smokeRise {
+  0% {
+    transform: translateX(-50%) translateY(0) scale(0.8);
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateX(-50%) translateY(-80px) scale(1.4);
+    opacity: 0;
+  }
+}
+.counter-caption {
+  text-align: center;
+  font-family: 'Dancing Script', cursive;
+  font-size: 28px;
+  color: #fff;
+  text-shadow: 0 0 8px #ff99dd;
+  margin-top: 40px;
+  animation: floatText 3s ease-in-out infinite;
+}
+ .squid_card {
+      width: 300px;
+      height: 180px;
+      background-color: #ff1493;
+      border: 4px solid #000;
+      box-shadow: 0 0 40px rgba(255, 0, 0, 0.4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      border-radius: 8px;
+        backface-visibility: hidden;
+    transform-style: preserve-3d;
+    }
+
+    .symbols {
+      display: flex;
+      gap: 20px;
+    }
+
+    .symbols svg {
+      width: 40px;
+      height: 40px;
+      stroke: black;
+      stroke-width: 6;
+      fill: none;
+    }
+    .card-container{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .flip-card {
+  width: 300px;
+  height: 180px;
+  perspective: 1000px;
+  cursor: pointer;
+}
+.card-front, .card-back {
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  position: absolute;
+  transition: transform 0.8s ease-in-out;
+  border-radius: 8px;
+}
+.card-front {
+  transform: rotateY(0deg);
+  z-index: 2;
+}
+.card-back {
+  background-color: #fff;
+  color: black;
+  transform: rotateY(180deg);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  text-align: center;
+}
+.flip-card.flipped .card-front {
+  transform: rotateY(180deg);
+  z-index: 1;
+}
+.flip-card.flipped .card-back {
+  transform: rotateY(360deg);
+  z-index: 2;
+}
+.letter-envelope {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+  margin-top: 60px;
+}
+.envelope {
+  position: relative;
+  width: 500px;
+  height: 300px;
+  background: #f06292;
+  border: 2px solid #000;
+  border-radius: 6px;
+  box-shadow: 0 0 30px rgba(255, 20, 147, 0.5);
+  overflow: hidden;
+  margin: 30px;
+}
+.flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: #e91e63;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top;
+  transition: transform 1s ease;
+  z-index: 3;
+}
+.letter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  transform: translateY(100%);
+  transition: transform 1s ease;
+  z-index: 2;
+  padding: 20px;
+  box-sizing: border-box;
+  font-family: 'Courier New', monospace;
+}
+.letter-content h3 {
+  margin-top: 0;
+  color: #e91e63;
+}
+.letter-content p {
+  font-size: 16px;
+  color: #333;
+}
+.envelope.open .flap {
+  transform: rotateX(-180deg);
+}
+
+.envelope.open .letter {
+  transform: translateY(0%);
+}
+#glass-bridge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .bridge-row {
+      display: flex;
+      gap: 20px;
+    }
+
+    .glass-tile {
+      width: 80px;
+      height: 80px;
+      background: #ccc;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: background 0.3s ease, transform 0.2s;
+      cursor: pointer;
+    }
+
+    .glass-tile:hover {
+      transform: scale(1.05);
+    }
+
+    .glass-tile.revealed {
+      background: lightgreen;
+    }
+
+    .glass-tile.correct {
+      background: #00ff99;
+    }
+
+    .glass-tile.wrong {
+      background: red;
+    }
+
+    #bridge-message {
+        text-align: center;
+  font-family: 'Dancing Script', cursive;
+  font-size: 28px;
+  color: #fff;
+  text-shadow: 0 0 8px #ff99dd;
+  margin-top: 40px;
+  animation: floatText 3s ease-in-out infinite;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      margin-top: 30px;
+      cursor: pointer;
+      border: none;
+      background: #ff477e;
+      color: white;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #ff235c;
+    }
+    .mini-game{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+    #game-cap{
+        text-align: center;
+  font-family: 'Dancing Script', cursive;
+  font-size: 28px;
+  color: #fff;
+  text-shadow: 0 0 8px #ff99dd;
+  margin-top: 40px;
+  animation: floatText 3s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+<div class="stars"></div>
+<div class="sparkles"></div>
+<h1 class="heading"></h1>
+<div class="cake-section">
+  <div class="wish-text">Make a Wish, Nethra!</div>
+  <div class="cake">
+    <div class="plate"></div>
+    <div class="layer layer-bottom"></div>
+    <div class="layer layer-middle"></div>
+    <div class="layer layer-top"></div>
+    <div class="icing"></div>
+    <div class="candles">
+  <div class="number-candle">
+    <div class="digit">2</div>
+    <div class="flame"></div>
+    <div class="smoke smoke1"></div>
+  </div>
+  <div class="number-candle">
+    <div class="digit">0</div>
+    <div class="flame">
+    </div>
+    <div class="smoke smoke2"></div>
+  </div>
+</div>
+  </div>
+</div><br><br>
+ <button id="blowCandlesBtn">Blow the Candles</button>
+<canvas id="confetti-canvas"></canvas>
+<div class="open-container">
+<div class="counter-caption">Nethra, you've been lighting up this world for...</div>
+<table>
+<tr id="title">
+    <th>Days</th>
+    <th>Hours</th>
+    <th>Minutes</th>
+    <th>Seconds</th>
+</tr>
+<tr id="counter"></tr>
+</table><br><br>
+</div><br>
+<div class="card-container">
+  <div class="flip-card" onclick="this.classList.toggle('flipped')">
+    <div class="squid_card card-front">
+      <div class="symbols">
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="35" /></svg>
+        <svg viewBox="0 0 100 100"><polygon points="50,15 85,85 15,85" /></svg>
+        <svg viewBox="0 0 100 100"><rect x="20" y="20" width="60" height="60" /></svg>
+      </div>
+    </div>
+    <div class="squid_card card-back">
+      <div class="message">
+        <p>네트라, 생존 축하해. 오늘은 네 날이야. 게임이 잠시 멈춘다.<br><br>— 프론트맨</p>
+      </div>
+    </div>
+  </div><br>
+</div><br>
+<div class="mini-game">
+<h1 id="game-cap">Glass Bridge Memory Game</h1>
+  <button id="startGlassGame">Start Game</button>
+  <div id="glass-bridge"></div>
+  <div id="bridge-message"></div>
+  </div>
+    <script>
+    const bridge = document.getElementById("glass-bridge");
+    const message = document.getElementById("bridge-message");
+    const startBtn = document.getElementById("startGlassGame");
+
+    let currentStep = 0;
+    let correctPath = [];
+    const rows = 5;
+
+    function generateBridge() {
+      bridge.innerHTML = "";
+      correctPath = [];
+
+      for (let i = 0; i < rows; i++) {
+        const row = document.createElement("div");
+        row.classList.add("bridge-row");
+
+        const left = document.createElement("div");
+        left.classList.add("glass-tile");
+        const right = document.createElement("div");
+        right.classList.add("glass-tile");
+
+        const safe = Math.random() < 0.5 ? "left" : "right";
+        correctPath.push(safe);
+
+        if (safe === "left") {
+          left.dataset.safe = "true";
+          right.dataset.safe = "false";
+        } else {
+          right.dataset.safe = "true";
+          left.dataset.safe = "false";
+        }
+
+        row.appendChild(left);
+        row.appendChild(right);
+        bridge.appendChild(row);
+      }
+    }
+
+    function showPathTemporarily() {
+      const tiles = document.querySelectorAll(".glass-tile");
+      tiles.forEach(tile => {
+        if (tile.dataset.safe === "true") tile.classList.add("revealed");
+      });
+
+      setTimeout(() => {
+        tiles.forEach(tile => tile.classList.remove("revealed"));
+        enableClicks();
+      }, 2000);
+    }
+
+    function enableClicks() {
+      const rowsList = document.querySelectorAll(".bridge-row");
+      rowsList.forEach((row, idx) => {
+        const tiles = row.querySelectorAll(".glass-tile");
+        if (idx === currentStep) {
+          tiles.forEach(tile => {
+            tile.style.pointerEvents = "auto";
+            tile.addEventListener("click", handleTileClick);
+          });
+        } else {
+          tiles.forEach(tile => {
+            tile.style.pointerEvents = "none";
+            tile.removeEventListener("click", handleTileClick);
+          });
+        }
+      });
+    }
+
+    function handleTileClick(e) {
+      const tile = e.target;
+      const isSafe = tile.dataset.safe === "true";
+
+      if (isSafe) {
+        tile.classList.add("correct");
+        disableClicksForRow(currentStep);
+        currentStep++;
+        if (currentStep >= rows) {
+          message.textContent = "You crossed the glass bridge! Happy Birthday!";
+        } else {
+          enableClicks();
+        }
+      } else {
+        tile.classList.add("wrong");
+        message.textContent = "You chose the wrong tile! Game Over.";
+        disableAll();
+      }
+    }
+
+    function disableClicksForRow(step) {
+      const row = document.querySelectorAll(".bridge-row")[step];
+      if (row) {
+        row.querySelectorAll(".glass-tile").forEach(tile => {
+          tile.removeEventListener("click", handleTileClick);
+          tile.style.pointerEvents = "none";
+        });
+      }
+    }
+
+    function disableAll() {
+      const tiles = document.querySelectorAll(".glass-tile");
+      tiles.forEach(tile => {
+        tile.style.pointerEvents = "none";
+        tile.removeEventListener("click", handleTileClick);
+      });
+    }
+
+    startBtn.addEventListener("click", () => {
+      currentStep = 0;
+      message.textContent = "";
+      generateBridge();
+      showPathTemporarily();
+    });
+  </script>
+<div class="letter-envelope" onclick="openEnvelope()">
+  <div class="envelope">
+    <div class="flap"></div>
+    <div class="letter">
+      <div class="letter-content">
+        <h3 style="text-align: center;">Happy Birthday Nethra!!</h3>
+        <p>
+          On this special day, may your heart be full of joy and your smile shine brighter than ever.
+You bring so much warmth, kindness, and color into the lives of those around you. 💫
+Here's to 20 beautiful years — and many more to come! 
+May your dreams stay big and your worries stay small.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<script>
+  const starContainer = document.querySelector('.stars');
+  const sparkleContainer = document.querySelector('.sparkles');
+
+  for (let i = 0; i < 250; i++) {
+    const star = document.createElement('div');
+    star.classList.add('star');
+    star.style.left = `${Math.random() * 100}%`;
+    star.style.top = `${Math.random() * 100}%`;
+    starContainer.appendChild(star);
+  }
+  for (let i = 0; i < 150; i++) {
+    const sparkle = document.createElement('div');
+    sparkle.classList.add('sparkle');
+    sparkle.style.left = `${Math.random() * 100}%`;
+    sparkle.style.top = `${Math.random() * 100}%`;
+    sparkle.style.animationDelay = `${Math.random() * 3}s`;
+    sparkleContainer.appendChild(sparkle);
+  }
+const birthDate = new Date('2005-08-15T00:00:00');
+const greetings = [
+  "Happy Birthday Nethra",
+  "생일 축하해요 네트라",
+  "பிறந்தநாள் வாழ்த்துகள் நேத்ரா",
+  "जन्मदिन मुबारक हो नेत्रा"
+];
+let x = 0;
+function Timer() {
+  const now = new Date();
+  const diff = now - birthDate;
+  const d = Math.floor(diff/86400000);
+  const h = Math.floor((diff%86400000)/3600000);
+  const m = Math.floor((diff%3600000)/60000);
+  const s = Math.floor((diff%60000)/1000);
+  document.getElementById('counter').innerHTML =
+    `   <td>${d}</td>
+        <td> ${h}</td>
+        <td> ${m}</td>
+        <td> ${s}</td>
+        `;
+}
+function Greeting() {
+  const h = document.querySelector('.heading');
+  h.style.opacity = 0;
+  setTimeout(() => {
+    h.textContent = greetings[x];
+    h.style.opacity = 1;
+    x = (x + 1) % greetings.length;
+  }, 400);
+}
+setInterval(Timer, 1000);
+Timer();
+setInterval(Greeting, 2500);
+Greeting();
+document.getElementById('blowCandlesBtn').addEventListener('click', () => {
+  document.querySelectorAll('.flame').forEach((flame, index) => {
+    flame.classList.add('extinguished');
+
+    const smoke = flame.parentElement.querySelector('.smoke');
+    if (smoke) {
+      smoke.classList.add('active');
+      setTimeout(() => smoke.classList.remove('active'), 1500);
+    }
+  });
+  const duration = 3 * 1000;
+  const animationEnd = Date.now() + duration;
+  const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 999 };
+
+  function randomInRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  const interval = setInterval(() => {
+    const timeLeft = animationEnd - Date.now();
+    if (timeLeft <= 0) return clearInterval(interval);
+    confetti(Object.assign({}, defaults, {
+      particleCount: 50,
+      origin: {
+        x: randomInRange(0.1, 0.9),
+        y: Math.random() - 0.2
+      }
+    }));
+  }, 200);
+});
+const smokes = flame.parentElement.querySelectorAll('.smoke');
+smokes.forEach((smoke, i) => {
+  setTimeout(() => {
+    smoke.classList.add('active');
+    smoke.style.animation = 'smokeRise 3s ease-out forwards';
+    setTimeout(() => smoke.classList.remove('active'), 2500);
+  }, i * 300);
+});
+function openEnvelope() {
+  const envelope = document.querySelector('.envelope');
+  envelope.classList.add('open');
+}
+</script>
+</body>
+</html>
